@@ -26,7 +26,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("io.github.vaniadincahulDungeonMasterJava.App")
+    mainClass.set("io.github.vaniadincahul.DungeonMasterJava.App")
 }
 
 tasks.named<Test>("test") {

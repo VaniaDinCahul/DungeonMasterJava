@@ -3,12 +3,39 @@
  */
 package io.github.vaniadincahul.DungeonMasterJava;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
+    public JFrame getFrame() {
+        JFrame newJFRame = new JFrame();
+
+        newJFRame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        newJFRame.setVisible(true);
+        newJFRame.setFocusable(true);
+        newJFRame.setLocationRelativeTo(null);
+
+        return newJFRame;
+    }
+
+    public JPanel getPanel() {
+        JPanel newJPanel = new JPanel();
+
+        return newJPanel;
+    }
+
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        JPanel appPanel = new App().getPanel();
+        JFrame appFrame = new App().getFrame();
+
+        appPanel.setPreferredSize(new Dimension(600,400));
+        appFrame.add(appPanel);
+        appFrame.pack();
     }
 }
