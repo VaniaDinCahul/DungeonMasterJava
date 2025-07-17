@@ -8,12 +8,15 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    id("org.graalvm.buildtools.native") version "0.9.13"
+    `java-library`
     application
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    gradlePluginPortal()
 }
 
 dependencies {
@@ -29,7 +32,20 @@ application {
     mainClass.set("io.github.vaniadincahul.DungeonMasterJava.App")
 }
 
-tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
+graalvmNative {
+    toolchainDetection.set(false)
+    binaries {
+        named("main") {
+//            javaLauncher.set(null as JavaLauncher?)
+            buildArgs.add("--no-fallback")
+            buildArgs.add("--report-unsupported-elements-at-runtime")
+            imageName.set("DungeonMaster")
+//            useFatJar.set(true)
+        }
+    }
 }
+
+//tasks.named<Test>("test") {
+//    // Use JUnit Platform for unit tests.
+//    useJUnitPlatform()
+//}
