@@ -1,3 +1,8 @@
+# Structure
+   - assets    <> contains assets shared across all versions.
+   - core       <> Core launcher   
+   - lwjgl3     <> Desktop launcher - main prioritycl
+
 # DungeonMasterJava
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
