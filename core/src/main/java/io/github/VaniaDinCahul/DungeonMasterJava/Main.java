@@ -3,13 +3,17 @@ package io.github.VaniaDinCahul.DungeonMasterJava;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 
 ///      I try and explain shit as I code:
@@ -18,18 +22,33 @@ import java.util.*;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
 
-    int X_GRID_SIZE = 50;
-    int Y_GRID_SZE = 50;
-    int STARTER_POS = 25;
+    Dimension MAP_SIZE = new Dimension(
+        50,   //tiles
+              50    //tiles
+    );
+    Dimension STARTER_POS = new Dimension(
+        25,   //tiles
+              25    //tiles
+    );
+    Dimension MAP_VIEWPORT_SIZE = new Dimension(
+        10,   //tiles
+              10    //tiles
+    );
 
-    int GRID_SIZE = 15; //px
+    int GRID_SIZE = 15;     //px
 
     public mapTile[][] map;
-    List<mapTile> bag = new ArrayList<>();
 
+    // a viewport where the game will be displayed
     private Viewport viewport;
+
+    // basic camera in which the map will be displayed
+    private OrthographicCamera orthographicCamera;
+
+    // asset manager, not sure how it works yet.
     public AssetManager assetManager;
 
+    // makes the tiles and map kinda
     tileFactory tileFactory;
 
     private SpriteBatch batch;
@@ -43,28 +62,37 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        viewport = new ExtendViewport(600f, 350f);
-        assetManager = new AssetManager();
 
+        // Viewports and Cameras
+        orthographicCamera = new OrthographicCamera();
+        viewport = new FitViewport(600f, 350f);
+        viewport.update(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight());
+
+
+        // Managers
+        assetManager = new AssetManager();
         batch = new SpriteBatch();
+
+
+        // Textures
         image = new Texture("icon.png");
 
         one_way_corridor_1 = new Texture("1-way-corridor-1.png");
         one_way_corridor_2 = new Texture("1-way-corridor-2.png");
 
+
+        // Etc
         tileFactory = new tileFactory();
-        map = new mapTile[X_GRID_SIZE][Y_GRID_SZE];
+        map = new mapTile[MAP_SIZE.width][MAP_SIZE.height];
+
 
         // Creates the map
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map[x].length; y++) {
                 map[x][y] = new mapTile();
-                bag.add(map[x][y]);
+
             }
         }
-        //Places the player
-        map[STARTER_POS][STARTER_POS].isPLayer = true;
-        map[STARTER_POS][STARTER_POS] = tileFactory.generateTile();
     }
 
     @Override

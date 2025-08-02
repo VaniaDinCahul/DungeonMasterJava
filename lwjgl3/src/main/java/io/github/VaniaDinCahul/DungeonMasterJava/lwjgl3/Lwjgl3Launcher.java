@@ -1,5 +1,6 @@
 package io.github.VaniaDinCahul.DungeonMasterJava.lwjgl3;
 
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import io.github.VaniaDinCahul.DungeonMasterJava.Main;
@@ -17,8 +18,13 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
+
+        Graphics.Monitor mainMonitor = Lwjgl3ApplicationConfiguration.getPrimaryMonitor();
+        Graphics.DisplayMode displayMode = Lwjgl3ApplicationConfiguration.getDisplayMode();
+
         configuration.setTitle("DungeonMasterJava");
 
+        configuration.setFullscreenMode(displayMode);
         configuration.setResizable(false);
         configuration.useVsync(true);
 
